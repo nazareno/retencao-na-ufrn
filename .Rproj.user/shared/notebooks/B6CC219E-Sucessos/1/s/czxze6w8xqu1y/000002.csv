@@ -1,0 +1,19 @@
+"0","curriculo = read_csv2(""curriculo-componente-graduacao.csv"") %>% 
+    select(id_componente_curricular, semestre_oferta) %>% 
+    group_by(id_componente_curricular) %>% 
+    filter(semestre_oferta == min(semestre_oferta)) %>% 
+    ungroup() %>% 
+    unique()
+"
+"2","Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
+"
+"2","Parsed with column specification:
+cols(
+  id_curriculo_componente = col_integer(),
+  id_curriculo = col_integer(),
+  id_componente_curricular = col_integer(),
+  semestre_oferta = col_integer(),
+  tipo_vinculo_componente = col_character(),
+  nivel_ensino = col_character()
+)
+"

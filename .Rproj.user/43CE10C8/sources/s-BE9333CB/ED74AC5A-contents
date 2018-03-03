@@ -1,0 +1,119 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+```{r}
+matriculas = read_csv2("matricula-componente-20171.csv")
+
+matriculas = matriculas %>% 
+    distinct(id_curso, id_turma, discente, descricao)
+    
+matriculas_limpo = matriculas %>% 
+    mutate(situacao = case_when(
+        substring(descricao, 1, 9)  == "REPROVADO" ~ "INSUCESSO", 
+        substring(descricao, 1, 8)  == "APROVADO" ~ "SUCESSO", 
+        TRUE ~ "OUTROS"
+    )) %>% 
+    filter(situacao != "OUTROS")
+```
+
+```{r}
+matriculas %>% 
+    ungroup() %>% 
+    count(descricao)
+
+matriculas_limpo %>% 
+    ungroup() %>% 
+    count(situacao)
+```
+
+```{r}
+turmas = read_csv2("turmas-2017.1.csv1") 
+turmas = turmas %>% 
+    filter(nivel_ensino == "GRADUAÇÃO", modalidade_participantes == "Presencial")
+
+componentes = read_delim("componentes-curriculares-presenciais.csv", delim = ";") %>% 
+    mutate(id_componente = as.integer(id_componente))
+
+sucessos1 = matriculas_limpo %>% 
+    ungroup() %>% 
+    inner_join(turmas %>% select(id_turma, id_componente_curricular)) %>% 
+    left_join(componentes %>%  select(id_componente, nome, unidade_responsavel, ch_total, periodo_programa, curso_componente), 
+              by = c("id_componente_curricular" = "id_componente"))
+
+```
+
+```{r}
+curriculo = read_csv2("curriculo-componente-graduacao.csv") %>% 
+    select(id_componente_curricular, semestre_oferta) %>% 
+    group_by(id_componente_curricular) %>% 
+    filter(semestre_oferta == min(semestre_oferta)) %>% 
+    ungroup() %>% 
+    unique()
+```
+
+```{r}
+cursos = read_csv2("cursos-graduacao.csv")
+
+sucessos = sucessos1 %>% 
+    left_join(cursos %>% select(1, 2), by = "id_curso") %>% 
+    select(curso = nome.y, everything()) %>% 
+    left_join(curriculo) %>% 
+    unique()
+
+sucessos %>% 
+    count(curso) %>% 
+    arrange(-n)
+
+```
+
+
+```{r}
+
+notempo = sucessos %>% 
+    filter(curso %in% c("CIÊNCIAS E TECNOLOGIA", 
+                        "ARTES VISUAIS",
+                        "TECNOLOGIA DA INFORMAÇÃO",
+                        "ENGENHARIA CIVIL",
+                        "FÍSICA", 
+                        "FARMÁCIA", 
+                        "MEDICINA",
+                        "DIREITO")) %>% 
+    filter(semestre_oferta > 0) %>% 
+    group_by(curso, semestre_oferta) %>% 
+    summarise(retencao = sum(situacao == "INSUCESSO") / n(), 
+              matriculados = n()) %>% 
+    filter(matriculados > 20)
+
+t = notempo %>% 
+    ggplot(aes(x = semestre_oferta, 
+               y = retencao, 
+               group = curso, 
+               fill = curso,
+               label = matriculados)) + 
+    geom_area(alpha = .7) + 
+    facet_grid(curso ~ .)
+t
+# library("plotly")
+# 
+# ggplotly(t)
+
+```
+
+```{r}
+sucessos %>% 
+    filter(nome.x == "CALCULO DIFERENCIAL E INTEGRAL I") %>% 
+    group_by(id_turma) %>% 
+    count()  
+    
+
+```
+
+
+

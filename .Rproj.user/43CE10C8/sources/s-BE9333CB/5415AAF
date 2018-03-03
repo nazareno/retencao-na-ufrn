@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520112299338.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5415AAF",
+    "lastKnownWriteTime" : 6,
+    "last_content_update" : 1520112299338,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "DEAAFB66",
+        "caption" : "notempo",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=notempo&cache_key=DEAAFB66",
+        "displayedObservations" : 59,
+        "environment" : "",
+        "object" : "notempo",
+        "preview" : 0,
+        "totalObservations" : 59,
+        "variables" : 4
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

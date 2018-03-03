@@ -1,0 +1,18 @@
+"0","matriculas = read_csv2(""matricula-componente-20171.csv"")
+"
+"2","Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
+"
+"2","Parsed with column specification:
+cols(
+  id_turma = col_integer(),
+  discente = col_character(),
+  id_curso = col_integer(),
+  unidade = col_integer(),
+  nota = col_number(),
+  reposicao = col_character(),
+  faltas_unidade = col_integer(),
+  media_final = col_character(),
+  numero_total_faltas = col_integer(),
+  descricao = col_character()
+)
+"

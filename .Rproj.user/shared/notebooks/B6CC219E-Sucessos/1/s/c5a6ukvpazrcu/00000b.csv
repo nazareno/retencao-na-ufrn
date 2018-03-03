@@ -1,0 +1,56 @@
+"0","turmas = read_csv2(""turmas-2017.1.csv1"") "
+"2","Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
+"
+"2","Parsed with column specification:
+cols(
+  .default = col_character(),
+  id_turma = col_integer(),
+  id_docente_interno = col_integer(),
+  id_docente_externo = col_integer(),
+  id_componente_curricular = col_integer(),
+  ano = col_integer(),
+  periodo = col_integer(),
+  data_inicio = col_date(format = """"),
+  data_fim = col_date(format = """"),
+  total_solicitacoes = col_integer(),
+  capacidade_aluno = col_integer(),
+  id_turma_agrupadora = col_integer(),
+  qtd_aulas_lancadas = col_integer()
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"0","turmas = turmas %>% "
+"0","    filter(nivel_ensino == ""GRADUAÇÃO"", modalidade_participantes == ""Presencial"")"
+"0","componentes = read_delim(""componentes-curriculares-presenciais.csv"", delim = "";"") %>% "
+"0","    mutate(id_componente = as.integer(id_componente))"
+"2","Missing column names filled in: 'X30' [30]"
+"2","Parsed with column specification:
+cols(
+  .default = col_character(),
+  ch_estagio = col_integer(),
+  ch_total = col_integer(),
+  ch_dedicada_docente = col_integer(),
+  ch_ead = col_integer(),
+  cr_max_ead = col_integer(),
+  qtd_unidades = col_integer(),
+  ano_programa = col_integer(),
+  periodo_programa = col_integer()
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"2","number of columns of result is not a multiple of vector length (arg 1)"
+"2","2396 parsing failures.
+row # A tibble: 5 x 5 col     row      col           expected     actual expected   <int>    <chr>              <chr>      <chr> actual 1   199 conteudo delimiter or quote          l file 2   199 conteudo delimiter or quote            row 3   199 conteudo delimiter or quote          S col 4   199     <NA>         30 columns 24 columns expected 5   200     <NA>         30 columns  5 columns actual # ... with 1 more variables: file <chr>
+... ................. ... .............................................. ........ .............................................. ...... .............................................. .... .............................................. ... .............................................. ... .............................................. ........ .............................................. ...... .......................................
+See problems(...) for more details.
+"
+"2","NAs introduzidos por coerção"
+"0","sucessos1 = matriculas_limpo %>% "
+"0","    ungroup() %>% "
+"0","    inner_join(turmas %>% select(id_turma, id_componente_curricular)) %>% "
+"0","    left_join(componentes %>%  select(id_componente, nome, unidade_responsavel, ch_total, periodo_programa, curso_componente), "
+"0","              by = c(""id_componente_curricular"" = ""id_componente""))"
+"2","Joining, by = ""id_turma""
+"
