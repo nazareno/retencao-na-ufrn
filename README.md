@@ -1,4 +1,8 @@
-# baixar_dados.py
+# retencao-na-ufrn
+
+disciplinas de que períodos reprovam mais na ufrn? 
+
+## baixar_dados.py
 
 Esse script baixa os dados das turmas e matrículas, os agrupando em 2 CSVs.
 
