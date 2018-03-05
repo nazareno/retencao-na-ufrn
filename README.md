@@ -18,4 +18,4 @@ Depois rodar com:
 
     python baixar_dados.py
 
-Os CSV final de matrículas não foi inserido diretamente no repositório porque tem quase 1GB.
+Os CSV final de matrículas não foi inserido diretamente no repositório porque tem quase 1GB. Mas pode ser baixado [aqui](http://devcolab.each.usp.br/ufrn/matriculas.csv).
